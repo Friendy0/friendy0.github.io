@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>PersonBubbleChart</title>
+    <script src="/static/js/d3.min.js"></script>
+    <script src="/static/js/jquery-3.6.1.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .detail {
+            position: absolute;
+            width: 150px;
+            height: 80px;
+            background-color: #8E8883;
+            border: 1px solid red;
+            border-radius: 15px;
+        }
+    </style>
+</head>
+<body>
+<svg width="800" height="600" id="mainsvg" class="svgs"></svg>
+<script>
+    let data = [
+        [
+            {
+                "value": 68,
+                "hair": "Black",
+                "eye": "Brown"
+            },
+            {
+                "value": 119,
+                "hair": "Brown",
+                "eye": "Brown"
+            },
+            {
+                "value": 26,
+                "hair": "Red",
+                "eye": "Brown"
+            },
+            {
+                "value": 7,
+                "hair": "Blond",
+                "eye": "Brown"
+            }
+        ],
+        [
+            {
+                "value": 20,
+                "hair": "Black",
+                "eye": "Blue"
+            },
+            {
+                "value": 84,
+                "hair": "Brown",
+                "eye": "Blue"
+            },
+            {
+                "value": 17,
+                "hair": "Red",
+                "eye": "Blue"
+            },
+            {
+                "value": 94,
+                "hair": "Blond",
+                "eye": "Blue"
+            }
+        ],
+        [
+            {
+                "value": 15,
+                "hair": "Black",
+                "eye": "Hazel"
+            },
+            {
+                "value": 54,
+                "hair": "Brown",
+                "eye": "Hazel"
+            },
+            {
+                "value": 14,
+                "hair": "Red",
+                "eye": "Hazel"
+            },
+            {
+                "value": 10,
+                "hair": "Blond",
+                "eye": "Hazel"
+            }
+        ],
+        [
+            {
+                "value": 5,
+                "hair": "Black",
+                "eye": "Green"
+            },
+            {
+                "value": 29,
+                "hair": "Brown",
+                "eye": "Green"
+            },
+            {
+                "value": 14,
+                "hair": "Red",
+                "eye": "Green"
+            },
+            {
+                "value": 16,
+                "hair": "Blond",
+                "eye": "Green"
+            }
+        ]
+    ];
+    let hairSumList = [0, 0, 0, 0];
+    let eyeSumList = [0, 0, 0, 0];
+    let maxValue = 0;
+    let maxEye = 0;
+    let maxHair = 0;
+    let totalSum = 0;
+    const hairColorList = ["Black", "Brown", "Red", "Blond"];
+    const eyeColorList = ["Brown", "Blue", "Hazel", "Green"];
+    let hairDisplayColors = ["#000000", "#802A2A", "#FF0000", "#FFD700"];
+    let eyeDisplayColors = ["#802A2A", "#0000FF", "#F0E68C", "#00FF00"];
+    let scaleVal = 6;
+    let scaleJie = 1.9;
+    const svg = d3.select("#mainsvg");
+    for (let i = 0; i < data.length; ++i) {
+        for (let j = 0; j < data[0].length; ++j) {
+            data[i][j]["hairColor"] = hairDisplayColors[i];
+            data[i][j]["eyeColor"] = eyeDisplayColors[j];
+            data[i][j]["x"] = j + 1;
+            data[i][j]["y"] = i + 1;
+            maxValue = maxValue >= data[i][j].value ? maxValue : data[i][j].value;
+            eyeSumList[i] += data[i][j].value;
+            hairSumList[j] += data[i][j].value;
+            totalSum += data[i][j].value;
+            data[i][j]["hairColor"] = hairDisplayColors[i];
+            data[i][j]["eyeColor"] = eyeDisplayColors[j];
+            data[i][j]["x"] = j;
+            data[i][j]["y"] = i;
+        }
+    }
+    for (let i = 0; i < data.length; ++i) {
+        maxEye = maxEye >= eyeSumList[i] ? maxEye : eyeSumList[i];
+    }
+    for (let j = 0; j < data[0].length; ++j) {
+        maxHair = maxHair >= hairSumList[j] ? maxHair : hairSumList[j];
+    }
+    let delta = Math.sqrt(maxValue);
+    let deltax = deltay = delta;
+    /*let deltax = Math.sqrt(maxHair);
+    let deltay = Math.sqrt(maxEye);*/
+    for (let i = 0; i < data.length; ++i) {
+        for (let j = 0; j < data[0].length; ++j) {
+            person(svg, data[i][j]);
+        }
+    }
+    /*function makePieChart(selection, obj){
+        let pie = d3.pie()
+            .sort(null)
+            .value((d) => {
+                return d.value;
+            });
+
+        let pieHairData = pie(hairSumList);
+        let pieEyeData = pie(eyeSumList);
+        let outerRadius =
+    }*/
+    async function person(selection, obj) {
+        let cx = (obj.x + 1) * deltax * scaleJie * scaleVal;
+        let cy = (obj.y + 1) * deltay * scaleJie * scaleVal;
+        // let r = obj.value / 2.0;
+        let r = Math.sqrt(obj.value) * scaleVal;
+        let transition = selection.append("circle")
+            .attr("r", 0)
+            .attr("fill", obj.hairColor)
+            .attr("cx", cx)
+            .attr("cy", cy)
+            .on("mouseover", () => {
+                let text = selection.append("g")
+                    .attr("transform", "translate(" + cx + "," + cy + ")")
+                    .attr("class", "detail")
+                    .append("text")
+                    .attr("font-size", "18px")
+                    .attr("fill", "lightblue");
+                let details = [
+                    "Value: " + obj.value,
+                    "Eye color: " + obj.eye,
+                    "Hair color: " + obj.hair];
+                for (let i = 0; i < details.length; ++i) {
+                    text.append("tspan")
+                        .attr("x", 0)
+                        .attr("dy", 20)
+                        .text(details[i]);
+                }
+            })
+            .on("mouseout", () => {
+                d3.select("text").remove();
+            })
+            .transition()
+            .duration(1000)
+            .attr("r", r);
+        await transition.end();
+
+        selection.append("circle")
+            .attr("r", 0)
+            .attr("fill", obj.eyeColor)
+            .attr("cx", cx - r / 3.0)
+            .attr("cy", cy - r / 4.0)
+            .transition()
+            .duration(300)
+            .attr("r", r / 4.0)
+            .attr("stroke", "grey");
+        selection.append("circle")
+            .attr("r", 0)
+            .attr("fill", obj.eyeColor)
+            .attr("cx", cx + r / 3.0)
+            .attr("cy", cy - r / 4.0)
+            .transition()
+            .duration(300)
+            .attr("r", r / 4.0)
+            .attr("stroke", "grey");
+    }
+</script>
+</body>
+</html>
