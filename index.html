@@ -9,25 +9,25 @@
     <script src="/static/js/vega-lite@5.5.0.min.js"></script>
     <script src="/static/js/vega-embed@6.21.0.min.js"></script>
     <script type="text/javascript" src="static/js/jquery.js"></script>
+    <script type="text/javascript" src="/static/js/echarts.min.js"></script>
+    <script type="text/javascript" src="/static/js/china.js"></script>
     <link rel="stylesheet" href="static/css/comon0.css">
 </head>
 <script>
-	$(window).load(function(){  
-             $(".loading").fadeOut()
-            })  
-			
-/****/
-$(document).ready(function(){
-	var whei=$(window).width()
-	$("html").css({fontSize:whei/20})
-	$(window).resize(function(){
-		var whei=$(window).width()
-	 $("html").css({fontSize:whei/20})
-});
-	});
+    $(window).load(function () {
+        $(".loading").fadeOut()
+    })
+
+    /****/
+    $(document).ready(function () {
+        var whei = $(window).width()
+        $("html").css({fontSize: whei / 20})
+        $(window).resize(function () {
+            var whei = $(window).width()
+            $("html").css({fontSize: whei / 20})
+        });
+    });
 </script>
-<script type="text/javascript" src="static/js/echarts.min.js"></script>
-<script type="text/javascript" src="static/js/china.js"></script>
 <body>
 <div class="canvas" style="opacity: .2">
     <iframe frameborder="0" src="static/js/index.html" style="width: 100%; height: 100%"></iframe>
@@ -42,21 +42,20 @@ $(document).ready(function(){
         <span id="showTime"></span>
     </div>
     <script>
-var t = null;
-    t = setTimeout(time,1000);//開始运行
-    function time()
-    {
-       clearTimeout(t);//清除定时器
-       dt = new Date();
-		var y=dt.getFullYear();
-		var mt=dt.getMonth()+1;
-		var day=dt.getDate();
-       var h=dt.getHours();//获取时
-       var m=dt.getMinutes();//获取分
-       var s=dt.getSeconds();//获取秒
-       document.getElementById("showTime").innerHTML = y+"年"+mt+"月"+day+"日"+"-"+h+"时"+m+"分"+s+"秒";
-       t = setTimeout(time,1000); //设定定时器，循环运行     
-    } 
+        var t = null;
+        t = setTimeout(time, 1000);//開始运行
+        function time() {
+            clearTimeout(t);//清除定时器
+            dt = new Date();
+            var y = dt.getFullYear();
+            var mt = dt.getMonth() + 1;
+            var day = dt.getDate();
+            var h = dt.getHours();//获取时
+            var m = dt.getMinutes();//获取分
+            var s = dt.getSeconds();//获取秒
+            document.getElementById("showTime").innerHTML = y + "年" + mt + "月" + day + "日" + "-" + h + "时" + m + "分" + s + "秒";
+            t = setTimeout(time, 1000); //设定定时器，循环运行
+        }
     </script>
 </div>
 <div class="mainbox">
@@ -65,7 +64,8 @@ var t = null;
             <div class="boxall" style="height: 3.2rem">
                 <div class="alltitle">{{form.echart1.title}}</div>
                 <div class="allnav" id="echart1">
-                    <iframe src="pages/3.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/3.html" frameborder="0" scrolling="No" width="100%" height="100%" leftmargin="0"
+                            topmargin="0">
                         <a href="pages/3.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -74,7 +74,8 @@ var t = null;
             <div class="boxall" style="height: 3.2rem">
                 <div class="alltitle">{{form.echart2.title}}</div>
                 <div class="allnav" id="echart2">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -82,7 +83,8 @@ var t = null;
             </div>
             <div class="boxall" style="height: 3.2rem">
                 <div style="height:100%; width: 100%;">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                     <!--<div class="sy" id="fb1"></div>
@@ -113,7 +115,8 @@ var t = null;
                 <div class="map2"><img src="static/picture/jt.png"></div>
                 <div class="map3"><img src="static/picture/map.png"></div>
                 <div class="map4" id="map_1" style="left: 0px;top: 0px;">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -123,7 +126,8 @@ var t = null;
             <div class="boxall" style="height:3.4rem">
                 <div class="alltitle">{{form.echart4.title}}</div>
                 <div class="allnav" id="echart4">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -132,7 +136,8 @@ var t = null;
             <div class="boxall" style="height: 3.2rem">
                 <div class="alltitle">{{form.echart5.title}}</div>
                 <div class="allnav" id="echart5">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -141,7 +146,8 @@ var t = null;
             <div class="boxall" style="height: 3rem">
                 <div class="alltitle">{{form.echart6.title}}</div>
                 <div class="allnav" id="echart6">
-                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"  leftmargin="0"  topmargin="0">
+                    <iframe src="pages/test.html" frameborder="0" scrolling="No" width="100%" height="100%"
+                            leftmargin="0" topmargin="0">
                         <a href="pages/test.html">你的浏览器不支持iframe页面嵌套，请点击这里访问页面内容。</a>
                     </iframe>
                 </div>
@@ -150,6 +156,5 @@ var t = null;
         </li>
     </ul>
 </div>
-<div class="back"></div>
 </body>
 </html>
