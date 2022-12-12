@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1" />
+    <title>china</title>
+    <script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
+
+    <style>
+        path {
+
+            fill: #ccc;
+            stroke: #fff;
+            stroke-width: .5px;
+        }
+
+        path:hover {
+            fill: red;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div>
+        <label>
+            <span id="tooltip"></span>
+        </label>
+    </div>
+    <script type="text/javascript">
+        var width = 960, height = 800;
+
+        var svg = d3.select("body").append("svg")
+            .attr("width", width)
+            .attr("height", height)
+            .attr("preserveAspectRatio", "xMidYMid")
+            .attr("viewBox", "0 0 " + width + " " + height);
+
+        var tooltip = d3.select("#tooltip");
+
+        var proj = d3.geo.mercator().center([105, 38]).scale(750).translate([width / 2, height / 2]);
+        var path = d3.geo.path().projection(proj);
+
+        d3.json("cn.json", function (error, cn) {
+            svg.append("g")
+                .attr("class", "states")
+                .selectAll("path")
+                .data(cn.features)
+                .enter()
+                .append("path")
+                // .attr('d', path)
+                // .attr('fill', function (d, i) { return colors(i) })
+                // .attr('stroke', 'rgba(255, 255, 255, 1')
+                // .attr('stroke-width', 1)
+                .on("mouseover", function (d) {
+                    tooltip.style("display", null)
+                    var coordinates = [0, 0];
+                    coordinates = d3.mouse(this);
+                    var x = coordinates[0];
+                    var y = coordinates[1];
+                    showText(d.max, d.min, x, y, d.city, d.id)
+                })
+                .on("mouseout", function () {
+                    tooltip.style("display", "none")
+                    svg.select('text').remove()
+                })
+                .attr("d", path)
+
+        });
+
+        //处理要显示的文字
+        function showText(_max, _min, x, y, _name, id) {
+            var str = "省份:" + id + ",城市:" + _name + ",平均最高气温:" + _max + "℃,平均最低气温:" + _min + "℃";
+            var strs = str.split(",")
+            var text = svg.append("text")
+                .attr("font-size", "18px")
+                .attr("x", x + 10)
+                .attr("y", y + 10)
+                .attr("color", "black")
+            // .text(str)
+            var texts = text.selectAll("tspan")
+                .data(strs)
+                .enter()
+                .append("tspan")
+                .attr("x", text.attr("x"))
+                .attr("dy", "1em")
+                .text(function (d) { return d })
+        }
+    </script>
+
+</body>
+
+</html>
