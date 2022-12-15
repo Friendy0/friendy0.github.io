@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>D3 and Scalable Vector Graphics</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.min.css" type="text/css" />
+
+    <style>
+        div {
+            clear: left;
+        }
+    </style>
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/crossfilter/1.3.12/crossfilter.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/dc/2.1.8/dc.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/queue-async/1.0.7/queue.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <h3>济南市2022年10月天气状况统计</h3>
+        <div id="天气"></div>
+    </div>
+    <div>
+        <h3>济南市2022年10月风向统计</h3>
+        <div id="风向"></div>
+    </div>
+    <div>
+        <h3>济南市2022年10月风力统计</h3>
+        <div id="风力"></div>
+    </div>
+
+    <script>
+        queue()
+            .defer(d3.json, "data/transactions.json")
+            .await(makeGraphs);
+
+        function makeGraphs(error, transactionsData) {
+            var ndx = crossfilter(transactionsData);
+
+            var climate_dim = ndx.dimension(dc.pluck("天气"));
+            var total_spend_per_climate = climate_dim.group().reduceSum(dc.pluck("spend"));
+            dc.pieChart("#天气")
+                .height(200)
+                .radius(90)
+                .transitionDuration(1500)
+                .dimension(climate_dim)
+                .group(total_spend_per_climate);
+
+            var direction_dim = ndx.dimension(dc.pluck("风向"));
+            var total_spend_per_direction = direction_dim.group().reduceSum(dc.pluck("spend"));
+            dc.pieChart("#风向")
+                .height(200)
+                .radius(90)
+                .transitionDuration(1500)
+                .dimension(direction_dim)
+                .group(total_spend_per_direction);
+
+            var force_dim = ndx.dimension(dc.pluck("级数"));
+            var total_spend_per_force = force_dim.group().reduceSum(dc.pluck("spend"));
+            dc.pieChart("#风力")
+                .height(200)
+                .radius(90)
+                .transitionDuration(1500)
+                .dimension(force_dim)
+                .group(total_spend_per_force);
+
+            dc.renderAll();
+        }
+    </script>
+</body>
+
+</html>
