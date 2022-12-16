@@ -8,6 +8,10 @@
     <script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
 
     <style>
+        body{
+            margin: 0;
+            padding: 0;
+        }
         path {
 
             fill: #ccc;
@@ -29,7 +33,7 @@
         </label>
     </div>
     <script type="text/javascript">
-        var width = 1200, height = 800;
+        var width = 960, height = 800;
 
         var svg = d3.select("body").append("svg")
             .attr("width", width)
@@ -39,7 +43,7 @@
 
         var tooltip = d3.select("#tooltip");
 
-        var proj = d3.geo.mercator().center([105, 38]).scale(900).translate([width / 2, height / 2]);
+        var proj = d3.geo.mercator().center([105, 38]).scale(750).translate([width / 2, height / 2]);
         var path = d3.geo.path().projection(proj);
 
         d3.json("../sources/cn.json", function (error, cn) {
@@ -77,7 +81,7 @@
                 .attr("font-size", "18px")
                 .attr("x", x + 10)
                 .attr("y", y + 10)
-                .attr("color", "black")
+                .attr("fill", '#00ff7f')
             // .text(str)
             var texts = text.selectAll("tspan")
                 .data(strs)
