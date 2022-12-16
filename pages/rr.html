@@ -39,7 +39,7 @@
 
         var tooltip = d3.select("#tooltip");
 
-        var proj = d3.geo.mercator().center([105, 38]).scale(750).translate([width / 2, height / 2]);
+        var proj = d3.geo.mercator().center([105, 38]).scale(900).translate([width / 2, height / 2]);
         var path = d3.geo.path().projection(proj);
 
         d3.json("../sources/cn.json", function (error, cn) {
