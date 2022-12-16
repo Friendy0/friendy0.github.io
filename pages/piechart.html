@@ -48,7 +48,7 @@
             var total_spend_per_climate = climate_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#天气")
                 .height(200)
-                .radius(90)
+                .radius(120)
                 .transitionDuration(1500)
                 .dimension(climate_dim)
                 .group(total_spend_per_climate);
@@ -57,7 +57,7 @@
             var total_spend_per_direction = direction_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#风向")
                 .height(200)
-                .radius(90)
+                .radius(120)
                 .transitionDuration(1500)
                 .dimension(direction_dim)
                 .group(total_spend_per_direction);
@@ -66,7 +66,7 @@
             var total_spend_per_force = force_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#风力")
                 .height(200)
-                .radius(90)
+                .radius(120)
                 .transitionDuration(1500)
                 .dimension(force_dim)
                 .group(total_spend_per_force);
