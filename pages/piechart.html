@@ -24,15 +24,12 @@
 
 <body>
     <div>
-<!--         <h3>济南市2022年10月天气状况统计</h3> -->
         <div id="天气"></div>
     </div>
     <div>
-<!--         <h3>济南市2022年10月风向统计</h3> -->
         <div id="风向"></div>
     </div>
     <div>
-<!--         <h3>济南市2022年10月风力统计</h3> -->
         <div id="风力"></div>
     </div>
 
@@ -47,7 +44,7 @@
             var climate_dim = ndx.dimension(dc.pluck("天气"));
             var total_spend_per_climate = climate_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#天气")
-                .height(200)
+                .height(300)
                 .radius(120)
                 .transitionDuration(1500)
                 .dimension(climate_dim)
@@ -56,7 +53,7 @@
             var direction_dim = ndx.dimension(dc.pluck("风向"));
             var total_spend_per_direction = direction_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#风向")
-                .height(200)
+                .height(300)
                 .radius(120)
                 .transitionDuration(1500)
                 .dimension(direction_dim)
@@ -65,7 +62,7 @@
             var force_dim = ndx.dimension(dc.pluck("级数"));
             var total_spend_per_force = force_dim.group().reduceSum(dc.pluck("spend"));
             dc.pieChart("#风力")
-                .height(200)
+                .height(300)
                 .radius(120)
                 .transitionDuration(1500)
                 .dimension(force_dim)
