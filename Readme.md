@@ -1,3 +1,8 @@
+### web page
+github自带的：friendy0.github.io
+
+如果打不开，可使用：vis.frid.tech
+
 ### 关于文件存放规范
 
 - pages
@@ -18,11 +23,6 @@
 
   这是首页
 
-  对于替换图片的方法就是搜索”iframe src=“就会找到这7处图片位置了，注意嵌入图片的尺寸。
-
-
-
-#### Tips 建议使用pycharm，vscode等，git命令行有点烦
 
 ##### git下载与上传
 
