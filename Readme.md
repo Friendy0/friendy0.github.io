@@ -1,3 +1,7 @@
+致谢 感谢[TurboWay](https://github.com/TurboWay/big_screen)给出的Big-Screen模板，特此鸣谢！
+
+[![image](https://github.com/TurboWay/imgstore/raw/master/bigscreen/corp.jpg)](https://github.com/TurboWay/imgstore/blob/master/bigscreen/corp.jpg)
+
 ### web page
 github自带的：friendy0.github.io
 
